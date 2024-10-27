@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background-color: #FDFDFD;
+}
+.rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Mencegah interaksi dengan elemen hujan */
+    z-index: 10; /* Pastikan hujan berada di atas konten lainnya */
+}
+
+/* Styling untuk tetesan hujan */
+.raindrop {
+    position: absolute;
+    width: 100px; /* Ukuran 2x lebih besar */
+    height: 90px; /* Ukuran 2x lebih besar */
+    background-image: url('rain.png'); /* Ganti dengan gambar hujan */
+    background-size: cover;
+    opacity: 0.7;
+    animation: fall linear infinite;
+}
+
+
+/* Animasi untuk jatuhnya hujan */
+@keyframes fall {
+    0% {
+        transform: translateY(-100px);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+p {
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 30px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+header {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.middle-container {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#playButton {
+    font-size: 18px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+video {
+    width: 38%;
+    pointer-events: none; /* Mencegah interaksi pada video */
+}
+
+.header {
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 50px;
+    font-weight: 400;
+    font-style: normal;
+}
+/* Modal animation */
+
+.modal, .password-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: #ffffff;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 100;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.modal.active, .password-modal.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    animation: bounceIn 0.6s ease-out;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    display: none;
+}
+
+.modal-overlay.active {
+    display: block;
+}
+
+/* Close Button */
+.close-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #ff6347;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Password Input Styling */
+input {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    height: 30px;
+    border-radius: 5px !important;
+  border: 1px solid var(--Neutral-5, #d9d9d9) !important;
+  background: var(--Neutral-1, #fff);
+}
+
+/* Warning Message */
+.warning {
+    color: red;
+    margin-top: 10px;
+}
+
+
+/* Animasi Berlebihan */
+@keyframes bounceIn {
+    0% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 0;
+    }
+    60% {
+        transform: translate(-50%, -50%) scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+}

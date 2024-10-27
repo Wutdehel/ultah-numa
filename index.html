@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <header>
+        <p class="header">Happy Birthday!!</p>
+    </header>
+    <div class="middle-container">
+        <video width="600" controls autoplay muted loop>
+            <source src="assets/video.mp4" type="video/mp4">
+            Browser Anda tidak mendukung pemutaran video.
+        </video>
+        <button id="playButton">Klik tombol ini</button>
+    </div>
+
+    <!-- Kontainer khusus untuk efek hujan -->
+    <div class="rain-container"></div>
+
+    <!-- Kontainer khusus untuk modal password -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="password-modal" id="passwordModal">
+        <p>Jawab pertanyaan dulu</p>
+        <p>Apa itu if?</p>
+        <div class="input-group">
+            <input type="text" id="passwordInput" placeholder="Jawaban...">
+        </div>
+        <div class="close-btn" id="submitPasswordButton">Submit</div>
+        <div class="warning" id="warningMessage"></div>
+    </div>
+
+    <!-- Kontainer khusus untuk modal ulang tahun -->
+    <div class="modal" id="modal">
+        <p>Selamat Ulang Tahun ya Nomu Cibinong, Semoga Panjang Umur Sehat Selalu Serta Ngoding selalalu, Terus harus selalu semangat PULANG MENGGUNAKAN KRL YANG PANAS DAN PADAT, I wish you all the happiness in the world, my love. May this new chapter bring you closer to your dreams and fill your heart with peace, joy, and endless love. I promise to stand by you, to cheer you on, and to love you more with each passing day. You are my everything, SEMANGAT TERUSSSSSSSSSSSSSS Happy birthday, swithat I hope your day is as amazing and special as you are to me. I love you more than words can ever say.</p>
+        <div class="close-btn" id="closeButton">Close</div>
+    </div>
+
+    <audio id="backgroundAudio" src="assets/bgm.mp3"></audio>
+    <script>
+        const playButton = document.getElementById('playButton');
+        const audio = document.getElementById('backgroundAudio');
+        const modal = document.getElementById('modal');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeButton = document.getElementById('closeButton');
+        const passwordModal = document.getElementById('passwordModal');
+        const passwordInput = document.getElementById('passwordInput');
+        const submitPasswordButton = document.getElementById('submitPasswordButton');
+        const warningMessage = document.getElementById('warningMessage');
+
+        // Fungsi untuk membuka modal password
+        function openPasswordModal() {
+            passwordModal.classList.add('active');
+            modalOverlay.classList.add('active');
+        }
+
+        // Fungsi untuk membuka modal pesan ulang tahun
+        function openModal() {
+            modal.classList.add('active');
+            audio.play();
+            // Jalankan efek konfeti
+            confetti();
+        }
+
+        // Fungsi untuk menutup modal password
+        function closePasswordModal() {
+            passwordModal.classList.remove('active');
+            modalOverlay.classList.remove('active');
+        }
+
+        // Fungsi untuk menutup modal pesan ulang tahun
+        function closeModal() {
+            modal.classList.remove('active');
+            modalOverlay.classList.remove('active');
+            audio.pause();
+            audio.currentTime = 0;
+        }
+
+        // Event listener untuk membuka modal password saat tombol Play Audio ditekan
+        playButton.addEventListener('click', openPasswordModal);
+
+        // Event listener untuk memeriksa jawaban saat tombol Submit ditekan
+        submitPasswordButton.addEventListener('click', function() {
+            const answer = passwordInput.value.trim().toLowerCase();
+            if (answer === 'jika') {
+                closePasswordModal();
+                openModal();
+                warningMessage.textContent = '';
+                passwordInput.value = '';
+            } else {
+                warningMessage.textContent = 'Coba lagi atuh neng';
+            }
+        });
+
+        // Event listener untuk menutup modal saat tombol Close ditekan
+        closeButton.addEventListener('click', closeModal);
+
+        // Tutup modal saat overlay ditekan
+        modalOverlay.addEventListener('click', function() {
+            closeModal();
+            closePasswordModal();
+        });
+    </script>
+    <script>
+        // Fungsi untuk membuat tetesan hujan
+        function createRain() {
+            const raindrop = document.createElement('div');
+            raindrop.classList.add('raindrop');
+            
+            // Tentukan posisi horizontal secara acak
+            raindrop.style.left = Math.random() * window.innerWidth + 'px';
+
+            // Tentukan durasi animasi secara acak untuk efek alami
+            raindrop.style.animationDuration = (Math.random() * 1 + 1) + 's';
+
+            // Tambahkan tetesan ke dalam kontainer hujan
+            document.querySelector('.rain-container').appendChild(raindrop);
+
+            // Hapus tetesan setelah animasi selesai
+            setTimeout(() => {
+                raindrop.remove();
+            }, 2000); // Sesuaikan dengan durasi animasi
+        }
+
+        // Buat hujan dengan interval
+        setInterval(createRain, 100); // 100 ms interval untuk membuat tetesan baru
+    </script>
+</body>
+</html>
